@@ -25,7 +25,7 @@ public class usetest {
 
   @Test
   public void testUsecase() throws Exception {
-	  File csv = new File("inputgit.csv");  // CSV�ļ�·��
+	  File csv = new File("inputgit.csv");  // CSV文件路径
 	    BufferedReader br = null;
 	    try
 	    {
@@ -38,22 +38,22 @@ public class usetest {
 	    String everyLine[];
 	    int i=1;
 	    try {
-	            while ((line = br.readLine()) != null)  //��ȡ�������ݸ�line����
+	            while ((line = br.readLine()) != null)  //读取到的内容给line变量
 	            {
-	            	if(i==1){
-	            	i++;
-	            	continue;
+	            	if(i==1){//忽略文件头	
+            	          i++;
+	            	  continue;
 	            	}
 	            	else{
 	                everyLine = line.split(",");
 	                driver.get(baseUrl);
 	                driver.findElement(By.id("name")).clear();
-	                driver.findElement(By.id("name")).sendKeys(everyLine[0]);
-	                driver.findElement(By.id("pwd")).clear();
-	                driver.findElement(By.id("pwd")).sendKeys(everyLine[0].substring(4,10));
-	                driver.findElement(By.id("submit")).click();
-	  
-	               assertEquals(everyLine[2], driver.findElement(By.xpath("//tbody[@id='table-main']/tr[3]/td[2]")).getText());
+	                driver.findElement(By.id("name")).sendKeys(everyLine[0]);//获得用户名
+			driver.findElement(By.id("pwd")).clear();
+	                driver.findElement(By.id("pwd")).sendKeys(everyLine[0].substring(4,10));//获取密码	
+                        driver.findElement(By.id("submit")).click();
+	                //比较网页内容与实际地址是否一致     
+	                assertEquals(everyLine[2], driver.findElement(By.xpath("//tbody[@id='table-main']/tr[3]/td[2]")).getText());
 	               
 	                System.out.println(everyLine[1]+" is OK!");
 	            	}
